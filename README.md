@@ -1,65 +1,48 @@
-# 🐙 Pulp Crypto — White Edition 4.0
+# Pulp · White Edition
 
-**Repositorio de la beta de integración de Pulp Web3** con diseño blanco/violeta, sistema de componentes y recursos de la mascota Pulp.
+**Un proyecto, una interfaz.** La aplicación vive en `public/`; GitHub Pages se construye desde esos mismos componentes, estilos e ilustraciones. No existe una segunda aplicación en `docs/`.
 
-**Código fuente sincronizado:** 169 archivos del paquete Pulp 4.0, además del README, una vista previa estática y GitHub Actions. Se excluyeron únicamente las capturas de pruebas y evidencias generadas para mantener el repositorio liviano. No se incluyeron credenciales privadas.
+## Abrir la presentación
 
-## Qué incluye
+https://thiagododero.github.io/Pulp-Crypto-Proyect/
 
-- **Intelligence:** consultas on-chain, histórico, watchlists, descubrimiento de wallets y alertas.
-- **Pulp Swap:** integración con Jupiter en código, revisión, firma y seguimiento de transacciones.
-- **Trade & Earn:** mercados, posiciones y preparación de operaciones DeFi.
-- **Launchpad:** SPL, metadata y preparadores de LaunchLab y Raydium (experimentales/bloqueados por defecto).
-- **Portfolio, token y tesorería:** saldos y consultas verificables cuando se configuran proveedores.
-- **Gobernanza:** votación local y preparadores de operaciones de una Squads existente.
-- **White Edition:** UI kit, tema claro y oscuro, iconos y recursos visuales de Pulp.
-- **AI Studio:** pantalla en construcción para integrar después el código original.
+La publicación incluye las 24 secciones de la interfaz. Los saldos, wallets y actividad son **ejemplos identificados**, no consultas financieras. Se puede navegar, filtrar, abrir fichas, editar borradores, guardar favoritos y probar formularios locales. No se conectan wallets ni se solicitan firmas. El controlador de wallets se reemplaza por un módulo inerte durante el build.
 
-Este repositorio **no despliega el token PULP**. Los servicios y contratos que aún no existan no se reemplazan por datos ficticios.
+El token oficial PULP no fue emitido. AI Studio muestra editor, capas visibles, calendario, moodboard y brand kit; generación, guardado de proyectos creativos y publicación siguen deshabilitados.
 
-## Abrir la app desde GitHub en Mac
+## Una sola fuente
 
-Necesitás Node.js 20.11 o superior y una wallet compatible para probar la integración.
+- `public/`: frontend compartido por la aplicación y la presentación.
+- `shared/`: validadores y utilidades comunes.
+- `server.mjs` y `lib/`: backend original, conservado para desarrollo.
+- `scripts/build-pages.mjs`: copia la interfaz a `_site/`, activa el transporte de presentación y elimina el controlador financiero del artefacto publicado.
+- `public/js/presentation-api.mjs`: datos y operaciones locales de muestra, sin acceso a proveedores. No se activa como fallback ante errores del backend normal.
+- `docs/`: documentación, no un frontend alternativo.
 
-```bash
-git clone https://github.com/thiagododero/Pulp-Crypto-Proyect.git
-cd Pulp-Crypto-Proyect
-node server.mjs --open
-```
+## Construir y comprobar
 
-También podés usar `Abrir.command` desde Finder. El lanzador busca un puerto libre; no requiere `npm install`. No ejecutes dos versiones diferentes usando el mismo directorio de datos.
-
-## Ver la vista previa en el navegador
-
-La vista previa **solo muestra diseño**, sin datos de inversión, wallets conectadas ni operaciones:
-
-- Archivo: [docs/index.html](docs/index.html)
-- Para publicar una URL, abrí **Settings → Pages → Build and deployment → GitHub Actions**. Después reejecutá el workflow **Publicar vista previa de Pulp** en la pestaña Actions.
-- La primera ejecución de Pages falló porque GitHub Pages todavía no estaba habilitado. Es posible que GitHub requiera cambios de visibilidad o plan según las condiciones del repositorio privado.
-
-**GitHub Pages no ejecuta el backend Node ni habilita swaps.** La app financiera completa requiere despliegue separado con HTTPS, base de datos, RPCs, credenciales y comprobaciones de seguridad.
-
-## Configuración segura
-
-La plantilla [`.env.example`](.env.example) contiene **campos vacíos**, no credenciales. Las claves reales se guardan fuera de Git, nunca en commits.
-
-Para configurar proveedores (RPC, Jupiter, Helius, Pinata, Squads y Supabase), leer:
-- [Guía de inicio](LEEME_PRIMERO.md)
-- [Configuración](docs/v4/CONFIGURACION.md)
-- [Despliegue](docs/v4/DESPLIEGUE.md)
-- [Alcance de los 15 puntos](docs/v4/ALCANCE_15_PUNTOS.md)
-- [Seguridad](docs/v4/OPERACION_Y_SEGURIDAD.md)
-
-## Pruebas
+Requiere Node.js 20.11+; no necesita `npm install`.
 
 ```bash
 npm run check
 npm test
+npm run build:pages
 ```
 
-También se ejecutan automáticamente en GitHub Actions (`Tests Pulp 4.0`).
+GitHub Actions ejecuta las pruebas y publica `_site/` automáticamente. Los assets usan rutas relativas compatibles con el subdirectorio del repositorio. Los CSS/JS de entrada se versionan en cada despliegue.
 
-## Advertencia técnica
+## Aplicación local con backend
 
-**Beta de integración, no producción auditada.** Las rutas financieras fueron probadas con proveedores y wallets de prueba, no con operaciones reales ni una Mac física. No exponer el servidor local con túneles ni habilitar preparadores experimentales sin verificar protocolos y autorizaciones. No publicar ninguna seed phrase, clave privada, `.env`, backup o datos de usuarios.
+```bash
+node server.mjs --open
+```
 
+También se puede usar `Abrir.command` en Mac. El servidor local conserva sus integraciones anteriores y requiere configuración de proveedores. **No es el modo de presentación publicado** y no está auditado para manejar fondos. No introducir seeds ni claves privadas. Ver `LEEME_PRIMERO.md` y `docs/v4/OPERACION_Y_SEGURIDAD.md`.
+
+## Alcance de la presentación
+
+Inicio, Intelligence, Pulp Swap / Earn, Launchpad, Portfolio, Actividad, Token y Tesorería, Gobernanza, AI Studio, UI Kit, Visuales, Estado, Ayuda, Ajustes, Explorador de wallets, Alertas, Estrategias, Liquidez, Launch Studio, LaunchLab, Gobernanza on-chain, Planes, Seguridad de cuenta y Operaciones.
+
+Se usan datos de ejemplo para mostrar paneles completos. No son recomendaciones de wallets, predicciones de retorno ni contratos desplegados. Las acciones financieras, emisión, publicación on-chain, cobros y credenciales permanecen deshabilitadas en Pages.
+
+Ver [documentación de la presentación](docs/PRESENTACION.md) y [reporte de revisión](docs/PRESENTACION_QA.json).

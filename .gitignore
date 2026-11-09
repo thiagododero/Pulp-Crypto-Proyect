@@ -9,3 +9,6 @@ tests/.generated/
 __pycache__/
 .DS_Store
 *.log
+
+# Generated from public/; never edit the Pages output directly.
+_site/

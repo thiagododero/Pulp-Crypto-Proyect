@@ -4,6 +4,7 @@ export class RequestError extends Error {
 }
 export function setCsrf(value) { csrf = value; }
 export async function api(route, params = {}, post = false) {
+    if (window.PULP_PRESENTATION) { const { presentationApi } = await import('./presentation-api.mjs'); return presentationApi(route, params, post); }
     const url = '/api/' + route + (post ? '' : Object.keys(params).length ? '?' + new URLSearchParams(params) : '');
     let response;
     try {

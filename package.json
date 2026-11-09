@@ -11,6 +11,7 @@
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",
     "check": "node tools-check.mjs",
-    "preflight": "node scripts/preflight.mjs"
+    "preflight": "node scripts/preflight.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   }
 }

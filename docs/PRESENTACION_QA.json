@@ -1,0 +1,26 @@
+{
+  "source": "public/",
+  "mode": "presentation",
+  "routes": 24,
+  "widths": [320, 375, 390, 430, 768, 1024, 1440],
+  "routeViewportChecks": 168,
+  "failedRouteViewportChecks": [],
+  "safetyAndNavigationChecks": 198,
+  "failedSafetyAndNavigationChecks": [],
+  "localFormChecks": [
+    {"name": "Save alert rule in browser", "pass": true},
+    {"name": "Save strategy in browser", "pass": true},
+    {"name": "Save distribution plan", "pass": true},
+    {"name": "Export metadata contains the form fields", "pass": true},
+    {"name": "Local governance proposal draft", "pass": true},
+    {"name": "Transaction details marked as example", "pass": true},
+    {"name": "Token detail works and has no market API error", "pass": true},
+    {"name": "Token example cannot configure PULP", "pass": true},
+    {"name": "Existing draft saved", "pass": true},
+    {"name": "No browser errors", "pass": true}
+  ],
+  "uncaughtBrowserErrors": [],
+  "nodeTests": {"passed": 117, "failed": 0},
+  "environment": "Linux / Chromium; in-memory harness from built artifact. No physical iPhone or Safari testing.",
+  "financialTransactionsExecuted": false
+}
