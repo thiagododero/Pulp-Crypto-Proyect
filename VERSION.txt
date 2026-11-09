@@ -1,0 +1,3 @@
+Pulp White Edition 4.0.0-beta.1
+Beta local y código de despliegue controlado. 2026-11-09.
+No audited • no official PULP issuance • no live financial execution verified.

@@ -1,0 +1,16 @@
+{
+  "name": "pulp-beta",
+  "version": "4.0.0-beta.1",
+  "private": true,
+  "description": "Pulp White 4.0: wallet accounts, on-chain integrations, assisted intelligence, deployable beta",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node tools-check.mjs",
+    "preflight": "node scripts/preflight.mjs"
+  }
+}

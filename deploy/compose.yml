@@ -1,0 +1,45 @@
+# Desde la raíz: docker compose --env-file .env -f deploy/compose.yml up --build -d
+# Una sola instancia de app. No contiene ningún dato o cuenta creados.
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    env_file: ../.env
+    environment:
+      PORT: "4173"
+      PULP_PUBLIC_ORIGIN: ${PULP_PUBLIC_ORIGIN:?Configurar origen HTTPS exacto}
+      PULP_ADMIN_WALLET: ${PULP_ADMIN_WALLET:?Configurar wallet administradora}
+      PULP_SUPABASE_URL: ${PULP_SUPABASE_URL:?Configurar Supabase}
+      PULP_SUPABASE_SERVICE_KEY: ${PULP_SUPABASE_SERVICE_KEY:?Configurar clave server-side}
+      PULP_ENCRYPTION_KEY: ${PULP_ENCRYPTION_KEY:?Configurar cifrado 32 bytes hex}
+      PULP_DATA_DIR: /data
+      PULP_TRUST_PROXY: "1"
+    expose: ["4173"]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    volumes: ["pulp-data:/data"]
+    networks: [pulp]
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      PULP_DOMAIN: ${PULP_DOMAIN:?Configurar PULP_DOMAIN en .env para desplegar}
+      ACME_EMAIL: ${ACME_EMAIL:?Configurar ACME_EMAIL en .env para desplegar}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks: [pulp]
+    depends_on: [app]
+volumes:
+  pulp-data:
+  caddy-data:
+  caddy-config:
+networks:
+  pulp:

@@ -1,0 +1,11 @@
+.git
+.env
+.env.*
+*.key
+node_modules
+previews
+tests
+docs
+scripts
+*.zip
+.DS_Store

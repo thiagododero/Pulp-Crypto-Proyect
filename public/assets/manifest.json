@@ -1,0 +1,591 @@
+{
+  "name": "Pulp White Edition / Visual Library",
+  "version": "4.0.0-beta.1",
+  "count": 73,
+  "assets": [
+    {
+      "name": "pulp-icon-ink",
+      "path": "assets/brand/pulp-icon-ink.svg",
+      "format": "svg",
+      "bytes": 482,
+      "category": "brand",
+      "note": "Local vector component"
+    },
+    {
+      "name": "pulp-icon-white",
+      "path": "assets/brand/pulp-icon-white.svg",
+      "format": "svg",
+      "bytes": 482,
+      "category": "brand",
+      "note": "Local vector component"
+    },
+    {
+      "name": "pulp-icon",
+      "path": "assets/brand/pulp-icon.svg",
+      "format": "svg",
+      "bytes": 482,
+      "category": "brand",
+      "note": "Local vector component"
+    },
+    {
+      "name": "pulp-logo-inverse",
+      "path": "assets/brand/pulp-logo-inverse.svg",
+      "format": "svg",
+      "bytes": 672,
+      "category": "brand",
+      "note": "Local vector component"
+    },
+    {
+      "name": "pulp-logo",
+      "path": "assets/brand/pulp-logo.svg",
+      "format": "svg",
+      "bytes": 672,
+      "category": "brand",
+      "note": "Local vector component"
+    },
+    {
+      "name": "activity",
+      "path": "assets/icons/activity.svg",
+      "format": "svg",
+      "bytes": 214,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "arrow-up",
+      "path": "assets/icons/arrow-up.svg",
+      "format": "svg",
+      "bytes": 212,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "arrow",
+      "path": "assets/icons/arrow.svg",
+      "format": "svg",
+      "bytes": 213,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "bell",
+      "path": "assets/icons/bell.svg",
+      "format": "svg",
+      "bytes": 238,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "box",
+      "path": "assets/icons/box.svg",
+      "format": "svg",
+      "bytes": 247,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "chart",
+      "path": "assets/icons/chart.svg",
+      "format": "svg",
+      "bytes": 222,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "check",
+      "path": "assets/icons/check.svg",
+      "format": "svg",
+      "bytes": 206,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "chevron",
+      "path": "assets/icons/chevron.svg",
+      "format": "svg",
+      "bytes": 204,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "circleCheck",
+      "path": "assets/icons/circleCheck.svg",
+      "format": "svg",
+      "bytes": 236,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "clock",
+      "path": "assets/icons/clock.svg",
+      "format": "svg",
+      "bytes": 234,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "close",
+      "path": "assets/icons/close.svg",
+      "format": "svg",
+      "bytes": 212,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "code",
+      "path": "assets/icons/code.svg",
+      "format": "svg",
+      "bytes": 228,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "coin",
+      "path": "assets/icons/coin.svg",
+      "format": "svg",
+      "bytes": 275,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "components",
+      "path": "assets/icons/components.svg",
+      "format": "svg",
+      "bytes": 380,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "copy",
+      "path": "assets/icons/copy.svg",
+      "format": "svg",
+      "bytes": 255,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "document",
+      "path": "assets/icons/document.svg",
+      "format": "svg",
+      "bytes": 232,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "down",
+      "path": "assets/icons/down.svg",
+      "format": "svg",
+      "bytes": 204,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "download",
+      "path": "assets/icons/download.svg",
+      "format": "svg",
+      "bytes": 226,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "external",
+      "path": "assets/icons/external.svg",
+      "format": "svg",
+      "bytes": 227,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "filter",
+      "path": "assets/icons/filter.svg",
+      "format": "svg",
+      "bytes": 214,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "globe",
+      "path": "assets/icons/globe.svg",
+      "format": "svg",
+      "bytes": 271,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "heart",
+      "path": "assets/icons/heart.svg",
+      "format": "svg",
+      "bytes": 252,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "history",
+      "path": "assets/icons/history.svg",
+      "format": "svg",
+      "bytes": 229,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "home",
+      "path": "assets/icons/home.svg",
+      "format": "svg",
+      "bytes": 249,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "image",
+      "path": "assets/icons/image.svg",
+      "format": "svg",
+      "bytes": 293,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "info",
+      "path": "assets/icons/info.svg",
+      "format": "svg",
+      "bytes": 239,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "layers",
+      "path": "assets/icons/layers.svg",
+      "format": "svg",
+      "bytes": 248,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "leaf",
+      "path": "assets/icons/leaf.svg",
+      "format": "svg",
+      "bytes": 237,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "link",
+      "path": "assets/icons/link.svg",
+      "format": "svg",
+      "bytes": 257,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "lock",
+      "path": "assets/icons/lock.svg",
+      "format": "svg",
+      "bytes": 272,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "logout",
+      "path": "assets/icons/logout.svg",
+      "format": "svg",
+      "bytes": 222,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "mail",
+      "path": "assets/icons/mail.svg",
+      "format": "svg",
+      "bytes": 253,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "menu",
+      "path": "assets/icons/menu.svg",
+      "format": "svg",
+      "bytes": 215,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "minus",
+      "path": "assets/icons/minus.svg",
+      "format": "svg",
+      "bytes": 200,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "moon",
+      "path": "assets/icons/moon.svg",
+      "format": "svg",
+      "bytes": 231,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "orbit",
+      "path": "assets/icons/orbit.svg",
+      "format": "svg",
+      "bytes": 353,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "palette",
+      "path": "assets/icons/palette.svg",
+      "format": "svg",
+      "bytes": 361,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "pause",
+      "path": "assets/icons/pause.svg",
+      "format": "svg",
+      "bytes": 207,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "play",
+      "path": "assets/icons/play.svg",
+      "format": "svg",
+      "bytes": 209,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "plus",
+      "path": "assets/icons/plus.svg",
+      "format": "svg",
+      "bytes": 208,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "radar",
+      "path": "assets/icons/radar.svg",
+      "format": "svg",
+      "bytes": 295,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "refresh",
+      "path": "assets/icons/refresh.svg",
+      "format": "svg",
+      "bytes": 259,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "rocket",
+      "path": "assets/icons/rocket.svg",
+      "format": "svg",
+      "bytes": 324,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "search",
+      "path": "assets/icons/search.svg",
+      "format": "svg",
+      "bytes": 243,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "settings",
+      "path": "assets/icons/settings.svg",
+      "format": "svg",
+      "bytes": 380,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "shield",
+      "path": "assets/icons/shield.svg",
+      "format": "svg",
+      "bytes": 252,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "sparkles",
+      "path": "assets/icons/sparkles.svg",
+      "format": "svg",
+      "bytes": 281,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "star",
+      "path": "assets/icons/star.svg",
+      "format": "svg",
+      "bytes": 252,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "sun",
+      "path": "assets/icons/sun.svg",
+      "format": "svg",
+      "bytes": 301,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "swap",
+      "path": "assets/icons/swap.svg",
+      "format": "svg",
+      "bytes": 232,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "trash",
+      "path": "assets/icons/trash.svg",
+      "format": "svg",
+      "bytes": 239,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "users",
+      "path": "assets/icons/users.svg",
+      "format": "svg",
+      "bytes": 285,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "vote",
+      "path": "assets/icons/vote.svg",
+      "format": "svg",
+      "bytes": 257,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "wallet",
+      "path": "assets/icons/wallet.svg",
+      "format": "svg",
+      "bytes": 274,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "warning",
+      "path": "assets/icons/warning.svg",
+      "format": "svg",
+      "bytes": 281,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "wrench",
+      "path": "assets/icons/wrench.svg",
+      "format": "svg",
+      "bytes": 248,
+      "category": "icons",
+      "note": "Local vector component"
+    },
+    {
+      "name": "pulp-analyst",
+      "path": "assets/white/pulp-analyst.png",
+      "format": "png",
+      "bytes": 267442,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-analyst",
+      "path": "assets/white/pulp-analyst.webp",
+      "format": "webp",
+      "bytes": 46932,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-builder",
+      "path": "assets/white/pulp-builder.png",
+      "format": "png",
+      "bytes": 302735,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-builder",
+      "path": "assets/white/pulp-builder.webp",
+      "format": "webp",
+      "bytes": 51974,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-coins",
+      "path": "assets/white/pulp-coins.png",
+      "format": "png",
+      "bytes": 295485,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-coins",
+      "path": "assets/white/pulp-coins.webp",
+      "format": "webp",
+      "bytes": 49254,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-hero",
+      "path": "assets/white/pulp-hero.png",
+      "format": "png",
+      "bytes": 269585,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-hero",
+      "path": "assets/white/pulp-hero.webp",
+      "format": "webp",
+      "bytes": 48364,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-rocket",
+      "path": "assets/white/pulp-rocket.png",
+      "format": "png",
+      "bytes": 240589,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-rocket",
+      "path": "assets/white/pulp-rocket.webp",
+      "format": "webp",
+      "bytes": 31656,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-trader",
+      "path": "assets/white/pulp-trader.png",
+      "format": "png",
+      "bytes": 295833,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    },
+    {
+      "name": "pulp-trader",
+      "path": "assets/white/pulp-trader.webp",
+      "format": "webp",
+      "bytes": 52198,
+      "category": "white",
+      "note": "Transparent generated brand illustration"
+    }
+  ]
+}

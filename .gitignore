@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+*.key
+node_modules/
+data/
+backups/
+tests/.generated/
+__pycache__/
+.DS_Store
+*.log

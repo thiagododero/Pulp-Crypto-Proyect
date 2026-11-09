@@ -1,0 +1,11 @@
+{
+  email {$ACME_EMAIL}
+}
+{$PULP_DOMAIN} {
+  encode zstd gzip
+  reverse_proxy app:4173 {
+    header_up Host {host}
+    header_up X-Real-IP {remote_host}
+    header_up -X-Forwarded-Host
+  }
+}
