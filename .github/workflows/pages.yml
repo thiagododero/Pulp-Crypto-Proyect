@@ -44,3 +44,19 @@ jobs:
       - name: Publicar Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Comprobar la URL publicada y sus recursos
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          base="${PAGE_URL%/}"
+          curl --fail --silent --show-error --retry 8 --retry-all-errors --retry-delay 2 "$base/build-info.json?v=$GITHUB_SHA" -o /tmp/pulp-build.json
+          node -e "const x=JSON.parse(require('fs').readFileSync('/tmp/pulp-build.json'));if(x.commit!==process.env.GITHUB_SHA||x.financialActions!==false||x.source!=='public/')process.exit(1);console.log('Commit y modo publicados verificados:',x.commit)"
+          for asset in index.html js/runtime-mode.js js/app.mjs js/api.mjs js/views.mjs js/v4-ui.mjs js/presentation-api.mjs js/presentation-guard.js js/wallet.mjs js/layout.js js/studio.js shared/solana.mjs css/tokens.css css/components.css css/app.css css/v4.css css/responsive.css assets/brand/pulp-icon.svg assets/white/pulp-hero.webp assets/white/pulp-trader.webp assets/white/scene-ecosystem.webp assets/white/scene-octopus.webp assets/white/scene-launch.webp; do
+            curl --fail --silent --show-error --retry 3 --retry-all-errors "$base/$asset?v=$GITHUB_SHA" -o /tmp/pulp-resource
+            test -s /tmp/pulp-resource
+            echo "OK $asset"
+          done
+          mime=$(curl --fail --silent --show-error -I "$base/js/app.mjs?v=$GITHUB_SHA" | tr -d '\r' | grep -i '^content-type:')
+          echo "$mime"
+          echo "$mime" | grep -Eiq '(text|application)/javascript'

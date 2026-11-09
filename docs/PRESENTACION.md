@@ -24,10 +24,10 @@ No quedan enlaces al antiguo preview ni una landing alternativa publicada en lug
 
 ## Comprobación de esta entrega
 
-117 pruebas de lógica/servidor/build aprobadas. Revisión de 24 rutas a 320, 375, 390, 430, 768, 1024 y 1440 px: 168 combinaciones sin desbordamiento horizontal de página, imágenes rotas ni paneles de error. Se revisaron además 198 controles de bloqueo/navegación/interacción y 10 recorridos de formularios locales, todos aprobados.
+117 pruebas de lógica/servidor/build aprobadas. Revisión de 24 rutas a 320, 375, 390, 430, 768, 1024 y 1440 px: 168 combinaciones sin desbordamiento horizontal de página, imágenes rotas ni paneles de error. Se revisaron además 198 controles de bloqueo/navegación/interacción y 12 recorridos de formularios locales, todos aprobados.
 
 Pruebas de navegador con Chromium en Linux. El entorno de revisión no permite navegar a localhost, por lo que se ejecutó el artefacto compilado con un harness que carga los recursos locales en memoria y rechaza red saliente. No se probó un iPhone físico ni Safari. Estos resultados no equivalen a una garantía de ausencia de errores en todos los dispositivos ni a una auditoría financiera.
 
 ## Publicación
 
-El workflow `.github/workflows/pages.yml` ejecuta `npm run check`, `npm test` y `node scripts/build-pages.mjs` antes de subir `_site/`. Un fallo impide publicar la nueva revisión. `build-info.json` identifica el commit y el modo servido.
+El workflow `.github/workflows/pages.yml` ejecuta `npm run check`, `npm test` y `node scripts/build-pages.mjs` antes de subir `_site/`. Un fallo impide publicar la nueva revisión. `build-info.json` identifica el commit y el modo servido. Tras publicar, el workflow comprueba por HTTPS el commit servido, los recursos esenciales y el tipo MIME del módulo principal.

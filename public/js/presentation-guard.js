@@ -5,7 +5,7 @@
   const aliases={swap:'trade',earn:'trade',kit:'ui-kit'};
   const old=location.hash.replace(/^#\/?/,'');
   if(aliases[old]) history.replaceState(null,'','#/'+aliases[old]);
-  const allowed=new Set(['refresh','retry','theme','menu','search','close-modal','go','new-project','launch-tab','trade-tab','token-picker','choose-token','swap-reverse','swap-half','watch-open','watch-save','watch-remove','favorite','save-draft','edit-draft','delete-draft','confirm-delete-draft','metadata','copy','kit-tab','kit-modal','kit-toast','kit-scroll','export-tokens','export-history','export-proposal','proposal-form','export-account','export-diagnostics','profile','density','v4-analyze-wallet','v4-export-events','v4-export-account','v4-export-launch-plan','v4-inbox-read','v4-delete-rule','v4-delete-strategy','v4-pool-open','v4-pool-next','v4-pool-prev','tx-detail','token-detail','swap-token','dismiss-setup','start-guide','reset-presentation']);
+  const allowed=new Set(['refresh','retry','theme','menu','search','close-modal','go','new-project','launch-tab','trade-tab','token-picker','choose-token','swap-reverse','swap-half','watch-open','watch-save','watch-remove','favorite','save-draft','edit-draft','delete-draft','confirm-delete-draft','metadata','copy','kit-tab','kit-modal','kit-toast','kit-scroll','export-tokens','export-history','export-proposal','proposal-form','export-account','export-diagnostics','profile','density','v4-analyze-wallet','v4-gov-detail','v4-export-events','v4-export-account','v4-export-launch-plan','v4-inbox-read','v4-delete-rule','v4-delete-strategy','v4-pool-open','v4-pool-next','v4-pool-prev','tx-detail','token-detail','swap-token','dismiss-setup','start-guide','reset-presentation']);
   const forms=new Set(['watch','picker','search','kit','label','profile','proposal','v4-analyze','v4-open-pool','v4-launchlab-read','v4-alert','v4-strategy','v4-launch-plan','v4-metadata','v4-privacy']);
   const U=window.PulpUI, btn=U.btn, badge=U.badge;
   U.btn=(text,action,ic,variant,extra='')=>{
@@ -39,6 +39,15 @@
       if(/^https:\/\/(explorer.solana.com|solscan.io|dexscreener.com)/.test(el.href)){
         el.removeAttribute('href');el.setAttribute('aria-disabled','true');el.classList.add('pv-disabled-link');el.title='Los datos de ejemplo no tienen comprobante on-chain';
       }
+    }
+    const titles=new Map([['Configuración leída on-chain','Configuración del lanzamiento · ejemplo'],['Pool verificado','Datos del pool · ejemplo'],['Organización y propuestas','Organización y propuestas · ejemplo'],['Proyectos publicados','Proyectos de ejemplo'],['Proyectos publicados en Solana','Fichas de proyectos · ejemplos'],['Membresía y facturas','Planes y comprobantes · ejemplos']]);
+    for(const el of document.querySelectorAll('.b-panel-head h2,.b-heading h2')){for(const node of el.childNodes)if(node.nodeType===3&&titles.has(node.textContent.trim()))node.textContent=titles.get(node.textContent.trim());}
+    for(const el of document.querySelectorAll('.b-notice>div,.b-empty>p')){
+      if(el.dataset.pvCopy)continue;el.dataset.pvCopy='1';const text=el.textContent;
+      if(text.includes('Los perfiles provienen de DEX Screener'))el.textContent='Fichas de muestra para revisar la interfaz. No provienen de una consulta en vivo ni son ofertas o recomendaciones de inversión.';
+      else if(text.includes('Borradores privados guardados en este servidor'))el.textContent='Borradores de ejemplo guardados solo en este navegador. No están asociados a una wallet real ni emiten tokens.';
+      else if(text.includes('Estas comisiones y derechos corresponden a la configuración real'))el.textContent='Valores de ejemplo para mostrar la configuración. No representan comisiones leídas del protocolo.';
+      else if(text.includes('Los datos aparecen a partir de consultas reales.'))el.textContent='Estado vacío del componente. Esta presentación no realiza consultas a proveedores.';
     }
     const drawer=app.querySelector('.b-nav');
     if(drawer&&!drawer.querySelector('a[href="#/wallet-inspector"]')){

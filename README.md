@@ -14,9 +14,9 @@ El token oficial PULP no fue emitido. AI Studio muestra editor, capas visibles, 
 
 - `public/`: frontend compartido por la aplicación y la presentación.
 - `shared/`: validadores y utilidades comunes.
-- `server.mjs` y `lib/`: backend original, conservado para desarrollo.
+- `server.mjs` y `server/`: backend original, conservado para desarrollo.
 - `scripts/build-pages.mjs`: copia la interfaz a `_site/`, activa el transporte de presentación y elimina el controlador financiero del artefacto publicado.
-- `public/js/presentation-api.mjs`: datos y operaciones locales de muestra, sin acceso a proveedores. No se activa como fallback ante errores del backend normal.
+- `public/js/presentation-api.mjs`: datos y operaciones locales de muestra, sin acceso a proveedores. No se activa como fallback ante errores del backend.
 - `docs/`: documentación, no un frontend alternativo.
 
 ## Construir y comprobar
