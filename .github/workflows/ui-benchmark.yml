@@ -2,7 +2,7 @@ name: Benchmark visual de Pulp
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/ui-benchmark.yml', 'scripts/benchmark-capture.py']
+    paths: ['.github/workflows/ui-benchmark.yml', 'scripts/benchmark-capture.py', 'scripts/benchmark-extra.py']
   workflow_dispatch:
 permissions:
   contents: read
@@ -29,13 +29,13 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Construir Pulp desde su interfaz compartida
         run: node scripts/build-pages.mjs
-      - name: Capturar pantallas públicas sin wallets ni transacciones
-        run: python scripts/benchmark-capture.py
+      - name: Capturar pantallas y referencias oficiales sin wallets ni transacciones
+        run: python scripts/benchmark-extra.py
       - name: Guardar capturas, fuentes y limitaciones
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pulp-visual-benchmark
+          name: pulp-visual-benchmark-extra
           path: .benchmark-captures/
           retention-days: 14
           if-no-files-found: error
