@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - 'docs/index.html'
+      - 'docs/preview.css'
+      - 'docs/preview.js'
+      - 'public/assets/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -29,6 +32,10 @@ jobs:
         run: |
           mkdir -p _site
           cp docs/index.html _site/index.html
+          cp docs/preview.css _site/preview.css
+          cp docs/preview.js _site/preview.js
+          mkdir -p _site/assets
+          cp -R public/assets/. _site/assets/
       - name: Configurar Pages
         uses: actions/configure-pages@v5
         with:
