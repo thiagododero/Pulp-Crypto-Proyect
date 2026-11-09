@@ -1,4 +1,4 @@
-/* Presentation is an explicit build mode, never inferred from a failed server connection. */
+/* Presentation is an explicit build mode. Quiet context; identical financial safeguards. */
 (() => {
   if (!window.PULP_PRESENTATION) return;
   document.documentElement.classList.add('pulp-presentation');
@@ -9,45 +9,44 @@
   const forms=new Set(['watch','picker','search','kit','label','profile','proposal','v4-analyze','v4-open-pool','v4-launchlab-read','v4-alert','v4-strategy','v4-launch-plan','v4-metadata','v4-privacy']);
   const U=window.PulpUI, btn=U.btn, badge=U.badge;
   U.btn=(text,action,ic,variant,extra='')=>{
-    if(action==='account'||action==='connect')text='Wallet deshabilitada';
-    if(!allowed.has(action))extra+=' disabled title="No disponible en modo visual: no conecta ni firma"';
+    if(action==='account'||action==='connect')text='Conectar wallet';
+    if(!allowed.has(action))extra+=' disabled title="No disponible en esta beta"';
     return btn(text,action,ic,variant,extra);
   };
-  U.badge=(text,tone,dot)=>badge(({'Cuenta verificada':'Perfil de muestra','Tu voto está firmado':'Vista de muestra','Configurado':'Solo visual','Disponible':'Maqueta','Activa':'Borrador local','Creación verificada':'Ejemplo visual'})[text]||text,tone,dot);
-  const changed=new Map([['Activar regla','Guardar regla local'],['Consultar historial indexado','Ver ejemplo de análisis'],['Leer estado y vesting','Ver ejemplo de lanzamiento'],['Consultar cuentas','Ver ejemplo del pool']]);
+  U.badge=(text,tone,dot)=>badge(({'Cuenta verificada':'Perfil beta','Tu voto está firmado':'Borrador','Configurado':'Beta','Disponible':'Beta','Activa':'Borrador local','Creación verificada':'Beta'})[text]||text,tone,dot);
+  const changed=new Map([['Activar regla','Guardar regla local'],['Consultar historial indexado','Ver análisis'],['Leer estado y vesting','Ver lanzamiento'],['Consultar cuentas','Ver pool']]);
   function decorate(){
     const app=document.getElementById('app'); if(!app?.querySelector('.b-main'))return;
-    if(!app.querySelector('.pv-banner')){
-      const b=document.createElement('div');b.className='pv-banner';b.setAttribute('role','note');
-      b.innerHTML='<span class="pv-label">VISTA DEL PRODUCTO</span><span>Datos de ejemplo. Wallets, firmas y pagos deshabilitados.</span><button type="button" data-pv-reset>Reiniciar ejemplos</button>';
-      app.querySelector('.b-topbar').after(b);
-    }
+    // Context lives once in the footer, not above every screen and dialog.
+    for(const el of app.querySelectorAll('.pv-banner'))el.remove();
     for(const el of document.querySelectorAll('#app [data-action],#dialog-root [data-action]')){
       if(el.dataset.pvChecked)continue;el.dataset.pvChecked='1';
-      if(!allowed.has(el.dataset.action)){el.disabled=true;el.setAttribute('aria-disabled','true');el.title='Deshabilitado en esta presentación';}
+      if(!allowed.has(el.dataset.action)){el.disabled=true;el.setAttribute('aria-disabled','true');el.title='No disponible en esta beta';}
     }
     for(const f of document.querySelectorAll('form[data-form]')){
       if(f.dataset.pvChecked)continue;f.dataset.pvChecked='1';
-      if(!forms.has(f.dataset.form)) for(const b of f.querySelectorAll('button[type="submit"],button:not([type])')){b.disabled=true;b.title='Requiere servicios reales; deshabilitado en la presentación';}
+      if(!forms.has(f.dataset.form))for(const b of f.querySelectorAll('button[type="submit"],button:not([type])')){b.disabled=true;b.title='No disponible en esta beta';}
       for(const b of f.querySelectorAll('button[type="submit"]'))if(changed.has(b.textContent.trim()))b.textContent=changed.get(b.textContent.trim());
-      for(const input of f.querySelectorAll('input[type="password"],input[name*="Rpc"],input[name="telegramChat"]')){input.disabled=true;input.value='';input.placeholder='No ingreses credenciales en esta vista';}
+      for(const input of f.querySelectorAll('input[type="password"],input[name*="Rpc"],input[name="telegramChat"]')){input.disabled=true;input.value='';input.placeholder='Configuración no disponible en esta beta';}
     }
-    for(const el of document.querySelectorAll('.b-pill-network')){if(el.dataset.pvChecked)continue;el.dataset.pvChecked='1';el.textContent='Modo visual';el.title='Sin conexión a una red';}
-    for(const el of document.querySelectorAll('.b-footer>span:last-child')){if(el.dataset.pvChecked)continue;el.dataset.pvChecked='1';el.textContent='Una interfaz compartida · sin operaciones reales en esta vista.';}
+    for(const el of document.querySelectorAll('.b-pill-network')){if(el.dataset.pvChecked)continue;el.dataset.pvChecked='1';el.hidden=true;}
+    for(const el of document.querySelectorAll('.b-footer>span:last-child')){
+      if(el.dataset.pvChecked)continue;el.dataset.pvChecked='1';
+      el.innerHTML='<details class="pv-beta-context"><summary>Beta · datos de muestra</summary><p>Esta edición permite recorrer el producto con ejemplos locales. Los importes, wallets, proyectos y movimientos mostrados no son datos de mercado ni recomendaciones. Conexiones, firmas, pagos y operaciones financieras permanecen deshabilitados. Tus borradores solo se guardan en este navegador.</p><button class="btn btn-ghost" type="button" data-pv-reset>Reiniciar ejemplos</button></details>';
+    }
     for(const el of document.querySelectorAll('a[href]')){
       if(el.dataset.pvChecked)continue;el.dataset.pvChecked='1';
       if(/^https:\/\/(explorer.solana.com|solscan.io|dexscreener.com)/.test(el.href)){
-        el.removeAttribute('href');el.setAttribute('aria-disabled','true');el.classList.add('pv-disabled-link');el.title='Los datos de ejemplo no tienen comprobante on-chain';
+        el.removeAttribute('href');el.setAttribute('aria-disabled','true');el.classList.add('pv-disabled-link');el.title='Comprobante no disponible para datos de muestra';
       }
     }
-    const titles=new Map([['Configuración leída on-chain','Configuración del lanzamiento · ejemplo'],['Pool verificado','Datos del pool · ejemplo'],['Organización y propuestas','Organización y propuestas · ejemplo'],['Proyectos publicados','Proyectos de ejemplo'],['Proyectos publicados en Solana','Fichas de proyectos · ejemplos'],['Membresía y facturas','Planes y comprobantes · ejemplos']]);
+    const titles=new Map([['Configuración leída on-chain','Configuración del lanzamiento'],['Pool verificado','Detalles del pool'],['Proyectos publicados','Proyectos'],['Proyectos publicados en Solana','Explorar proyectos'],['Membresía y facturas','Planes y comprobantes']]);
     for(const el of document.querySelectorAll('.b-panel-head h2,.b-heading h2')){for(const node of el.childNodes)if(node.nodeType===3&&titles.has(node.textContent.trim()))node.textContent=titles.get(node.textContent.trim());}
     for(const el of document.querySelectorAll('.b-notice>div,.b-empty>p')){
       if(el.dataset.pvCopy)continue;el.dataset.pvCopy='1';const text=el.textContent;
-      if(text.includes('Los perfiles provienen de DEX Screener'))el.textContent='Fichas de muestra para revisar la interfaz. No provienen de una consulta en vivo ni son ofertas o recomendaciones de inversión.';
-      else if(text.includes('Borradores privados guardados en este servidor'))el.textContent='Borradores de ejemplo guardados solo en este navegador. No están asociados a una wallet real ni emiten tokens.';
-      else if(text.includes('Estas comisiones y derechos corresponden a la configuración real'))el.textContent='Valores de ejemplo para mostrar la configuración. No representan comisiones leídas del protocolo.';
-      else if(text.includes('Los datos aparecen a partir de consultas reales.'))el.textContent='Estado vacío del componente. Esta presentación no realiza consultas a proveedores.';
+      if(text.includes('Los perfiles provienen de DEX Screener')||text.includes('Estas comisiones y derechos corresponden a la configuración real')){const box=el.closest('.b-notice');if(box)box.hidden=true;}
+      else if(text.includes('Borradores privados guardados en este servidor'))el.textContent='Tus borradores se guardan en este navegador.';
+      else if(text.includes('Los datos aparecen a partir de consultas reales.'))el.textContent='Todavía no hay información en este panel.';
     }
     const drawer=app.querySelector('.b-nav');
     if(drawer&&!drawer.querySelector('a[href="#/wallet-inspector"]')){
@@ -56,8 +55,8 @@
     const hero=app.querySelector('.p-route[data-route="launchpad"]');
     if(hero){[...hero.querySelectorAll(':scope > .p-hero')].slice(1).forEach(el=>el.remove());}
     for(const el of document.querySelectorAll('.b-table-wrap')){el.tabIndex=0;el.setAttribute('aria-label','Tabla de datos, desplazable horizontalmente');}
-    for(const d of document.querySelectorAll('.b-dialog-body')){if(d.querySelector('.pv-dialog-note'))continue;const n=document.createElement('p');n.className='small pv-dialog-note';n.textContent='Vista de ejemplo. No conecta wallets ni permite autorizar operaciones.';d.prepend(n);}
-    for(const f of document.querySelectorAll('.b-source')){if(f.dataset.pvChecked)continue;f.dataset.pvChecked='1';f.textContent='Ejemplo de diseño · no son datos de mercado ni operaciones reales';}
+    for(const el of document.querySelectorAll('.pv-dialog-note'))el.remove();
+    for(const f of document.querySelectorAll('.b-source')){if(f.dataset.pvChecked)continue;f.dataset.pvChecked='1';f.hidden=true;}
   }
   let queued=false;
   const observer=new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;decorate();});});
