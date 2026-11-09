@@ -1,0 +1,41 @@
+name: Benchmark visual de Pulp
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/ui-benchmark.yml', 'scripts/benchmark-capture.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pulp-ui-benchmark
+  cancel-in-progress: true
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar navegador de captura
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Construir Pulp desde su interfaz compartida
+        run: node scripts/build-pages.mjs
+      - name: Capturar pantallas públicas sin wallets ni transacciones
+        run: python scripts/benchmark-capture.py
+      - name: Guardar capturas, fuentes y limitaciones
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pulp-visual-benchmark
+          path: .benchmark-captures/
+          retention-days: 14
+          if-no-files-found: error
