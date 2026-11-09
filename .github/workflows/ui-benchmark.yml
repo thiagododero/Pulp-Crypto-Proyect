@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   capture:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
@@ -39,3 +39,4 @@ jobs:
           path: .benchmark-captures/
           retention-days: 14
           if-no-files-found: error
+          include-hidden-files: true
