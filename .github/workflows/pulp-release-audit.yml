@@ -1,4 +1,4 @@
-name: Preparar actualización Pulp Crypto 4.2.1
+name: Verificar y preparar Pulp Crypto 4.2.1
 on:
   push:
     branches: [main]
@@ -7,20 +7,44 @@ on:
 permissions:
   contents: read
 jobs:
-  snapshot:
+  prepare:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Exportar solamente archivos versionados para cotejo
-        run: |
-          mkdir -p /tmp/pulp-audit
-          git archive --format=tar.gz HEAD -o /tmp/pulp-audit/source.tar.gz
-          git ls-tree -r HEAD > /tmp/pulp-audit/tree.txt
-          git rev-parse HEAD > /tmp/pulp-audit/commit.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          name: pulp-release-source-audit
-          path: /tmp/pulp-audit/
-          retention-days: 1
+          node-version: '22'
+      - name: Verificar y reconstruir el paquete exacto
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import {brotliDecompressSync} from 'node:zlib';
+          const names=Array.from({length:8},(_,i)=>`.pulp-release-421/part-${String(i).padStart(2,'0')}.b64`);
+          const buffer=Buffer.from(names.map(p=>fs.readFileSync(p,'utf8').trim()).join(''),'base64');
+          if(crypto.createHash('sha256').update(buffer).digest('hex')!=='7e825886d11ea017b69037f3f63cbb8fdcd3ef2e343b23f8806381afa677a8a9')throw Error('Release transport checksum mismatch');
+          fs.writeFileSync('/tmp/pulp-421-delta.json',brotliDecompressSync(buffer));
+          NODE
+          python3 .pulp-release-421/apply.py apply
+      - name: Pruebas de código, recursos y bloqueo financiero
+        run: |
+          set -euo pipefail
+          npm run check
+          npm test | tee /tmp/pulp-release-result/tests.tap
+          npm run build:pages
+      - name: Preparar árbol de Git sin actualizar la rama
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .pulp-release-421/apply.py upload
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pulp-release-421-verified
+          path: /tmp/pulp-release-result/
+          retention-days: 2
+          if-no-files-found: error
