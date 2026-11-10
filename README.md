@@ -1,60 +1,42 @@
 # Pulp Crypto · White 4.2.1
 
-Rediseño de producto sobre **el mismo Pulp Crypto**, con tema blanco/violeta, recursos originales y UI kit compartido. Radar, lanzamientos, cartera, actividad y DeFi se reorganizaron a partir de la comparativa visual.
+Plataforma cripto con tema blanco/violeta, ilustraciones originales y un sistema de componentes compartido. Incluye el rediseño de Radar, Launchpad, Portfolio, Actividad, Swap, Earn y Liquidez. **AI Studio y el estudio creativo fueron retirados.**
 
-**Entrega local preparada, no publicada en GitHub por el asistente.** La conexión disponible en esta sesión no permitió escribir commits. El repositorio de destino sigue siendo `thiagododero/Pulp-Crypto-Proyect`; no se creó otro.
+## Probar online
 
-## Ver la aplicación
+**[Abrir Pulp](https://thiagododero.github.io/Pulp-Crypto-Proyect/?v=4.2.1#/home)**
 
-1. Descomprimí toda la carpeta.
-2. Con Node.js 20.11 o superior instalado, hacé doble clic en **`Ver_Pulp.command`**.
-3. Mantené la Terminal abierta. Se construye la vista desde `public/`, elige un puerto libre y abre el navegador.
+El código de la versión 4.2.1 está incorporado en `main`, en el commit [`2c4b4aa`](https://github.com/thiagododero/Pulp-Crypto-Proyect/commit/2c4b4aab60f986423a43c9e3fa5c07d48394c1dc). La publicación y sus verificaciones se consultan en [GitHub Actions](https://github.com/thiagododero/Pulp-Crypto-Proyect/actions/runs/42895176298).
 
-No requiere `npm install`, una cuenta de proveedor ni una wallet. Esta ruta abre la presentación: **conexiones, firmas, pagos y ejecución financiera están deshabilitados**. Los ejemplos y borradores son locales y están identificados discretamente en la interfaz.
+No hace falta descargar el ZIP ni ejecutar comandos para recorrer la web. GitHub Pages muestra la interfaz completa en modo presentación: **wallets, firmas, pagos y ejecución financiera están deshabilitados**. Los datos de muestra y borradores son locales y están identificados discretamente en la interfaz; no son cotizaciones ni recomendaciones.
 
-Si macOS impide el doble clic, revisá su procedencia y usá clic derecho → Abrir, o ejecutá `bash ` seguido del archivo arrastrado a Terminal. No desactives protecciones globales del sistema.
+## Alcance cripto
 
-## Actualizar el mismo GitHub y Pages
-
-**`Publicar_en_GitHub.command`** prepara una copia nueva del repositorio usando Git de tu Mac. Requiere tus credenciales de Git configuradas (la conexión de ChatGPT no las transfiere).
-
-El script verifica que `main` siga en la revisión examinada, valida los hashes de los archivos listados en `UPDATE_MANIFEST.json`, aplica solamente esos cambios y retira los archivos enumerados en `deletedFiles` y ejecuta las pruebas. Antes de crear el commit y subirlo te pide escribir **`PUBLICAR`**.
-
-No hace force push, no cambia permisos, no crea repositorios, no sube claves y no lanza PULP. Si detecta commits nuevos, se detiene sin sobrescribir nada. El paquete sigue siendo utilizable localmente aunque la actualización remota se detenga.
-
-Después de un push exitoso, el workflow existente construye Pages desde la misma interfaz. Comprobá la publicación en:
-https://github.com/thiagododero/Pulp-Crypto-Proyect/actions/workflows/pages.yml
-
-La URL seguirá siendo:
-https://thiagododero.github.io/Pulp-Crypto-Proyect/
-
-**La web actual no cambia hasta que se envíe y publique el commit.** No se probó un push autenticado con este paquete.
-
-## Alcance exclusivo cripto
-
-Se retiraron el estudio creativo, editor por capas, calendario de marketing, moodboard y su contrato de integración. El UI kit técnico y los recursos de marca permanecen: sostienen el diseño de la aplicación cripto, no son una herramienta de diseño para clientes.
-
-## Qué contiene
-
-- Radar con filtros, períodos, favoritos, vistas guardadas, comparador y perfiles.
+- Radar con filtros, períodos, favoritos, vistas guardadas, comparador y perfiles de wallets.
 - Launchpad con identidades de proyecto, estados, fichas y asistente de cuatro pasos.
-- Swap concentrado en su acción principal; catálogos y detalle de Earn/pools.
-- Portfolio con evolución, distribución, activos y posiciones; actividad interpretada con filtros.
+- Swap concentrado en su acción principal; catálogos y detalles de Earn y pools.
+- Portfolio con evolución, distribución, activos y posiciones; actividad interpretada y filtrable.
 - Alertas, estrategias, consultas de gobernanza y borradores locales.
-- Preferencias separadas de conexiones del operador; navegación agrupada y UI kit actualizado.
-- Recursos 3D originales, móvil, teclado, tema claro/oscuro y 25 rutas.
+- Preferencias separadas de conexiones del operador; navegación agrupada, móvil y teclado.
+- UI kit técnico, recursos de marca y 25 rutas. No contiene una sección de diseño creativo pendiente.
 
-Ver [alcance, pruebas y límites del rediseño](docs/PRODUCT_REFINEMENT.md).
+No se emitió PULP ni se habilitaron operaciones reales. El backend de la beta se conserva, con sus límites, sin presentarlo como un servicio financiero público auditado.
 
-## Código y modos
+## Una sola interfaz
 
-`public/` es la única fuente de UI. `_site/` es **salida generada** para presentación y no se edita manualmente. `node scripts/build-pages.mjs` la regenera. El backend se conserva en `server/`, `server.mjs` y `shared/`.
+`public/` es la fuente única de UI. `scripts/build-pages.mjs` genera `_site/` para GitHub Pages con los mismos módulos y recursos. No hay otro frontend manual en `docs/`.
 
-**`Abrir.command`** conserva el modo local conectado de la beta anterior. Ese modo necesita configuración propia y no está certificado para operar fondos. Para revisar este rediseño usá **`Ver_Pulp.command`**.
+El proceso de construcción de Pages sustituye el controlador de wallet por uno inerte y utiliza un transporte explícito de presentación. Los archivos del servidor, credenciales y datos privados no se publican como parte de `_site/`. El backend permanece en `server/`, `server.mjs` y `shared/`.
 
-El producto queda exclusivamente enfocado en cripto. No contiene un módulo de diseño creativo pendiente. No se emitió PULP, no se conectaron wallets reales ni se añadieron vaults/recompras/copy trading desatendido. Las capacidades previas del backend siguen sujetas a revisión y validación real.
+## Abrir localmente en Mac
 
-## Pruebas
+Con Node.js 20.11 o superior, descargá el repositorio y abrí **`Ver_Pulp.command`**. El lanzador construye la presentación, busca un puerto disponible y abre el navegador. No requiere `npm install` ni cuentas de proveedor. Dejá la Terminal abierta mientras lo usás.
+
+Si macOS bloquea el doble clic, revisá su procedencia y usá clic derecho → Abrir, o ejecutá `bash ` seguido del archivo arrastrado a Terminal. No desactives protecciones globales del sistema.
+
+**`Abrir.command`** conserva el modo local conectado de la beta anterior: requiere configuración propia y validación independiente. Para revisar el diseño usá **`Ver_Pulp.command`**. Nunca ingreses frases semilla ni claves privadas.
+
+## Desarrollo y publicación
 
 ```bash
 npm run check
@@ -62,10 +44,16 @@ npm test
 npm run build:pages
 ```
 
-Las pruebas Node incluidas no requieren paquetes nuevos. La verificación UI adicional requiere herramientas de desarrollo opcionales: TypeScript, Python Playwright y Chromium. Ver `tests/product-browser.py` y el método explicado en `docs/PRODUCT_REFINEMENT.md`.
+Las pruebas Node incluidas no requieren instalar dependencias nuevas. Al modificar la interfaz en `main`, el workflow [Publicar Pulp · interfaz unificada](https://github.com/thiagododero/Pulp-Crypto-Proyect/actions/workflows/pages.yml) ejecuta las pruebas, construye y publica Pages, y verifica el commit servido, recursos y tipo MIME de los módulos.
 
-No se ejecutaron Safari/iPhone físicos, auditoría independiente ni operaciones con fondos. El reporte de QA describe lo observado, no garantiza ausencia universal de errores.
+`Publicar_en_GitHub.command` es el actualizador del ZIP original contra una revisión antigua. **No es necesario para esta publicación ni para trabajar desde un clone actualizado.** Por seguridad se detiene si la rama ya cambió.
+
+## Verificación y límites
+
+La incorporación del paquete cotejó los hashes de 200 archivos y ejecutó 152 pruebas de código/servidor/construcción. Los detalles de publicación están en [PUBLICACION.md](PUBLICACION.md). Los manifiestos de integridad describen el ZIP original; la documentación de publicación se actualiza después del envío.
+
+Las pruebas visuales anteriores utilizaron Chromium offline, no Safari ni iPhone físico. No se realizó auditoría financiera independiente ni operaciones con fondos reales. Ver [alcance y pruebas](docs/PRODUCT_REFINEMENT.md); sus notas de falta de publicación corresponden al momento de preparación del ZIP, anterior al envío actual.
 
 ## Datos privados
 
-No publiques `.env`, claves, backups ni datos de usuarios. El servidor conectado conserva sus datos fuera del proyecto en el directorio PulpBeta de tu usuario. No ejecutes versiones conectadas distintas sobre el mismo directorio a la vez. El servidor de presentación es de solo lectura y escucha exclusivamente en loopback.
+No publiques `.env`, claves, backups ni datos de usuarios. El servidor conectado guarda sus datos fuera del repositorio, en PulpBeta dentro de tu usuario. No ejecutes varias versiones conectadas sobre el mismo directorio a la vez. El servidor de presentación local es de solo lectura y escucha en loopback.
