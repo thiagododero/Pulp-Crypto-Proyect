@@ -1,0 +1,36 @@
+import {e,I,button,link} from './views.mjs';
+export {e,I};
+export const money=n=>n==null||!Number.isFinite(Number(n))?'—':new Intl.NumberFormat('es-AR',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(Number(n));
+export const number=(n,d=0)=>n==null?'—':new Intl.NumberFormat('es-AR',{maximumFractionDigits:d}).format(n);
+export const compact=n=>n==null?'—':n>=1e6?`US$ ${(n/1e6).toFixed(2)} M`:n>=1000?`US$ ${(n/1000).toFixed(1)} k`:money(n);
+export const pct=n=>n==null?'—':number(n,2)+'%';
+export const sampleLabel=()=>window.PULP_PRESENTATION?'<span class="r-source-label" title="Valores ilustrativos, no consultados en el mercado">Datos de muestra</span>':'';
+export const btn=(label,action,icon='',variant='secondary',attrs='')=>button(label,action,icon,variant,attrs);
+export const go=(label,route,icon='',variant='secondary')=>link(label,route,icon,variant);
+export const pill=(label,tone='neutral')=>`<span class="r-pill ${e(tone)}">${e(label)}</span>`;
+export const title=(name,description,actions='')=>`<header class="r-title"><div><h1>${e(name)}</h1>${description?`<p>${e(description)}</p>`:''}</div><div class="r-actions">${actions}</div></header>`;
+export const section=(heading,body,extra='',cls='')=>`<section class="r-panel ${e(cls)}"><header class="r-panel-head"><h2>${e(heading)}</h2><div>${extra}</div></header>${body}</section>`;
+export const metric=(label,value,detail,icon='')=>`<article class="r-metric"><div>${e(label)}${icon?I(icon):''}</div><strong>${e(value)}</strong><small>${e(detail||'')}</small></article>`;
+export const tabs=(items,value,key)=>`<div class="r-tabs" role="tablist" aria-label="${e(key)}">${items.map(([id,label])=>`<button type="button" role="tab" aria-selected="${value===id}" class="${value===id?'active':''}" data-action="ux-tab" data-key="${e(key)}" data-value="${e(id)}">${e(label)}</button>`).join('')}</div>`;
+export const periods=(key,value='30d')=>tabs([['7d','7 D'],['30d','30 D'],['90d','90 D'],['all','Todo']],value,key);
+export const input=(id,label,value='',placeholder='Buscar…')=>`<label class="r-search" for="${e(id)}">${I('search')}<span class="sr-only">${e(label)}</span><input type="search" id="${e(id)}" data-ux-input="${e(id)}" value="${e(value)}" placeholder="${e(placeholder)}" autocomplete="off"><kbd>/</kbd></label>`;
+export const select=(id,label,value,items)=>`<label class="r-select"><span class="sr-only">${e(label)}</span><select id="${e(id)}" data-ux-input="${e(id)}" aria-label="${e(label)}">${items.map(([id,label])=>`<option value="${e(id)}" ${id===value?'selected':''}>${e(label)}</option>`).join('')}</select>${I('down','sm')}</label>`;
+export const asset=(symbol,small=false)=>`<span class="r-asset ${small?'sm':''} t-${e(String(symbol).toLowerCase())}" aria-hidden="true">${symbol==='SOL'?'<i></i><i></i><i></i>':symbol==='USDC'?'$':symbol==='USDT'?'₮':e(String(symbol).slice(0,1))}</span>`;
+export const pair=p=>`<span class="r-pair">${asset(p.symbolA,true)}${asset(p.symbolB,true)}</span>`;
+export const initials=(name,style='orbit')=>`<span class="r-avatar ${e(style)}" aria-hidden="true">${e(String(name).split(' ').map(x=>x[0]).slice(0,2).join(''))}</span>`;
+export const empty=(heading,desc,action='')=>`<div class="r-empty">${I('search')}<h3>${e(heading)}</h3><p>${e(desc)}</p>${action}</div>`;
+export const loader=()=>'<div class="r-loading" role="status"><span></span><span></span><span></span><span class="sr-only">Cargando</span></div>';
+export const breakdown=items=>`<dl class="r-breakdown">${items.map(([label,value])=>`<div><dt>${e(label)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+export function chart(values,{id='chart',large=false,negative=false,labels=[],currency=true}={}){
+ if(values.length<2)return empty('Historial insuficiente','Se necesitan al menos dos observaciones para mostrar la evolución.');
+ const width=640,height=large?200:50,pad=large?16:3;
+ const min=Math.min(...values),max=Math.max(...values),span=max-min||1;
+ const points=values.map((v,i)=>[pad+i*(width-2*pad)/(values.length-1),height-pad-(v-min)*(height-2*pad)/span]);
+ const line=points.map((p,i)=>(i?'L':'M')+p.map(v=>v.toFixed(2)).join(',')).join(' ');
+ const area=line+` L${width-pad},${height} L${pad},${height} Z`;
+ const uid=e(id.replace(/[^a-z0-9-]/gi,''));
+ return `<div class="r-chart ${large?'large':'spark'} ${negative?'negative':''}" ${large?`data-chart-values="${e(JSON.stringify(values))}" data-chart-labels="${e(JSON.stringify(labels))}" data-chart-currency="${currency}" tabindex="0" role="img" aria-label="Serie ${e(id)}: ${e(number(values[0],2))} a ${e(number(values.at(-1),2))}. Usá las flechas para explorar."`:''}><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="area-${uid}" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity=".17"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>${large?[.15,.45,.75].map(y=>`<path d="M0 ${height*y} H${width}" class="r-chart-grid"/>`).join(''):''}<path d="${area}" fill="url(#area-${uid})"/><path d="${line}" fill="none" stroke="currentColor" stroke-width="${large?2.8:1.6}" vector-effect="non-scaling-stroke"/><circle cx="${points.at(-1)[0]}" cy="${points.at(-1)[1]}" r="${large?4:0}" fill="currentColor"/></svg>${large?'<output class="r-chart-tip" hidden></output>':''}</div>`;
+}
+export const table=(heads,rows,cls='')=>`<div class="r-table-wrap ${e(cls)}"><table class="r-table"><thead><tr>${heads.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(cells=>`<tr>${cells.map((c,i)=>`<td data-label="${e(heads[i].replace(/<[^>]+>/g,''))}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+export const statusLabel=s=>({confirmed:'Confirmada',finalized:'Finalizada',submitted:'Pendiente',failed:'Fallida',unknown:'Estado incierto',curve:'En curva',planned:'Próximo',graduated:'Graduado',draft:'Borrador'})[s]||s;
+export const statusPill=s=>pill(statusLabel(s),['confirmed','finalized','graduated'].includes(s)?'success':['failed'].includes(s)?'danger':['submitted','planned'].includes(s)?'warning':'purple');

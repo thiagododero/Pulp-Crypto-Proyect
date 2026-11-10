@@ -15,7 +15,6 @@
 | LaunchLab | Enlace oficial explícito | No se crearon curvas, preventas ni comisiones de plataforma. |
 | PULP / Tesorería | Lectura del mint y wallet configurados | Hay que proporcionar direcciones auténticas de la red elegida. |
 | Gobernanza | Consultas locales firmadas; enlace Realms/Squads | No mueve tesorería ni ejecuta decisiones on-chain. |
-| AI Studio | Placeholder coherente con el design system | Pendiente por pedido explícito. |
 | Portfolio observado | Muestras autenticadas, locales, cada 15 minutos | Sin backfill; no PnL; precios incompletos marcados. |
 | Actividad | Historial de operaciones enviadas desde Pulp | Exportación y actualización del estado; no historial completo del explorador. |
 | UI kit / visuales | Integrados en la app | Recursos locales; fuentes del sistema; no archivos de fuentes. |

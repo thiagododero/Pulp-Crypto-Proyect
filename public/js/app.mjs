@@ -2,8 +2,11 @@ import { api } from './api.mjs';
 import { Wallets } from './wallet.mjs';
 import { MINT, PROGRAM, address, units, decimal, from64, to64, explorer, parseTransaction, b58encode } from '/shared/solana.mjs';
 import { NAV, e, I, B, short, usd, date, button, link, ext, miniExt, addr, notice, empty, panel, definition, field, checkbox, skeleton, statusBadge, shell, renderPage, tokenDetails } from './views.mjs';
+import {renderProduct, renderProductDialog, productBindings} from './product-ui.mjs';
 import { V4_NAV, renderV4, extendV4, v4Bindings } from './v4-ui.mjs';
 NAV.push(...V4_NAV);
+if(!NAV.some(n=>n[0]==='connections'))NAV.push(['connections','Conexiones','settings']);
+if(!NAV.some(n=>n[0]==='earn'))NAV.push(['earn','Earn','layers']);
 const $ = s => document.querySelector(s), U = window.PulpUI;
 const safeStored = (key, fallback) => {
     try {
@@ -18,7 +21,7 @@ const initialWorkspace = () => ({ profile: { name: '' }, watched: [], favorites:
 const freshLaunch = () => ({ id: '', name: '', symbol: '', supply: '', decimals: 6, description: '', image: '', uri: '', fixed: true });
 const S = { route: 'home', theme: safeStored('pulp:white:theme', 'light'), density: safeStored('pulp:density', 'comfortable'), config: { network: 'mainnet', slippageBps: 50, maxPriceImpact: 3 }, owner: null, workspace: initialWorkspace(), tokens: [{ mint: MINT.SOL, symbol: 'SOL', name: 'Solana', decimals: 9 }, { mint: MINT.USDC, symbol: 'USDC', name: 'USD Coin', decimals: 6 }], busy: '', menu: false, modal: null, setupDismissed: safeStored('pulp:white:setup-dismissed', '0') === '1', kitTab: 'overview', portfolioData: null, tradeTab: 'swap', launchTab: 'discover', watchAddress: '', forms: { watch: { address: '' }, swap: { amount: '', inputMint: MINT.SOL, outputMint: MINT.USDC, slippageBps: 50 }, launch: freshLaunch(), settings: {}, profile: { name: '' }, kit: { label: '', checked: false }, send: { mint: MINT.SOL, destination: '', amount: '' }, earn: { mint: '', action: 'deposit', amount: '' }, proposal: { title: '', description: '', days: 7 }, label: { label: '' }, picker: { q: '' }, search: { q: '' } } };
 let epoch = 0, renderQueued = false, previousFocus = null, clock = null, booted = false, txPolling = false, txPollCount = 0;
-function routeFromHash() { const r = location.hash.replace(/^#\/?/, '').split('?')[0]; return NAV.some(n => n[0] === r) ? r : 'home'; }
+function routeFromHash() { const r = location.hash.replace(/^#\/?/, '').split('?')[0]; if (NAV.some(n => n[0] === r)) return r; if (r && /^#\//.test(location.hash)) history.replaceState(null, '', '#/home'); return 'home'; }
 function applyTheme() { if (!['light', 'dark'].includes(S.theme))
     S.theme = 'light'; document.documentElement.dataset.theme = S.theme; document.body.dataset.density = S.density; document.querySelector('meta[name="theme-color"]')?.setAttribute('content', S.theme === 'light' ? '#ffffff' : '#1d1a27'); }
 function scheduleRender() {
@@ -85,8 +88,9 @@ function render() {
     const focus = captureFocus(), hadMenu = !!document.querySelector('.b-sidebar.open');
     applyTheme();
     document.title = (NAV.find(x => x[0] === S.route)?.[1] || 'Inicio') + ' · Pulp';
-    const page = renderV4(S, R) ?? renderPage(S.route === 'wallet-inspector' ? { ...S, route: 'intelligence' } : S, R);
-    $('#app').innerHTML = shell(S, extendV4(S, R, page));
+    const product = renderProduct(S, R);
+    const page = product ?? extendV4(S, R, renderV4(S,R) ?? renderPage(S.route === 'wallet-inspector' ? {...S,route:'intelligence'} : S,R));
+    $('#app').innerHTML = shell(S, page);
     renderDialog();
     $('#app').inert = !!S.modal;
     if (S.menu && innerWidth <= 800) {
@@ -181,7 +185,11 @@ function renderDialog() {
     }
     const m = S.modal;
     let html = '';
-    if (m.kind === 'wallets') {
+    if (m.kind === 'product') {
+        const p=renderProductDialog(S,R);
+        html=dialog(p.title,p.body,button('Cerrar','close-modal','','secondary'),p.wide);
+    }
+    else if (m.kind === 'wallets') {
         const list = wallets.list();
         html = dialog('Conectar tu wallet', `<div class="p-wallet-intro"><img src="assets/white/pulp-hero.webp" alt=""><div><span class="p-overline">TU ESPACIO, TU CONTROL</span><h3>Tu wallet.<br>Tu universo.</h3></div></div>` + notice('Pulp solicita una conexión y luego una firma de acceso. Nunca una frase semilla.') + (list.length ? list.map((w, i) => `<button class="b-wallet-option" data-action="connect-provider" data-index="${i}" ${disabled()}><span class="b-iconbox">${I('wallet')}</span><strong>${e(w.name)}</strong>${I('chevron')}</button>`).join('') : empty('No se detectaron wallets', 'Instalá o habilitá una wallet Solana compatible con Wallet Standard y recargá esta página.', 'wallet', ext('Sitio oficial de Phantom', 'https://phantom.com/'))) + `<p class="b-footnote">Chrome/Brave con la extensión habilitada es la ruta de prueba recomendada. En un teléfono se requiere un sitio HTTPS y el navegador de la wallet; localhost de tu Mac no es accesible desde el teléfono.</p>`, cancel());
     }
@@ -485,7 +493,8 @@ const handlers = {
     'export-tokens': () => run('Exportando tokens de diseño…', async () => { const d = await fetch('assets/design-tokens.json').then(r => r.json()); download('Pulp-design-tokens.json', d); }), 'kit-toast': () => toast('Componente de notificación del UI kit.'), 'kit-modal': () => openModal('kit'),
 };
 const v4UI = v4Bindings({ S, api, run, prepare, clearData, toast, download, needAccount, render: scheduleRender });
-Object.assign(handlers, v4UI.actions);
+const productUI=productBindings({S,R,api,render:scheduleRender,toast,download,openModal,closeModal,clearData});
+Object.assign(handlers,v4UI.actions,productUI.actions);
 document.addEventListener('click', event => {
     if (event.target.closest('[data-skip]')) {
         event.preventDefault();
@@ -552,6 +561,7 @@ document.addEventListener('submit', event => {
     event.preventDefault();
     const kind = form.dataset.form, f = formData(form);
     S.forms[kind] = f;
+    if(kind.startsWith('ux-')||(S.modal?.kind==='product'&&['v4-alert','v4-strategy'].includes(kind))){ productUI.onForm(kind,f).catch(err=>toast(err.message,true));return;}
     if (kind.startsWith('v4-')) {
         v4UI.onForm(kind, f).catch(err => toast(err.message, true));
         return;
@@ -625,7 +635,7 @@ document.addEventListener('keydown', event => {
         const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (i + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
         event.preventDefault();
         tabs[next].click();
-        queueMicrotask(() => document.querySelector(`[data-action="${tab.dataset.action}"][data-value="${tabs[next].dataset.value}"]`)?.focus());
+        queueMicrotask(() => document.querySelector(`[data-action="${tab.dataset.action}"]${tab.dataset.key?`[data-key="${tab.dataset.key}"]`:""}[data-value="${tabs[next].dataset.value}"]`)?.focus());
         return;
     }
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -673,8 +683,7 @@ window.addEventListener('resize', () => { if (innerWidth > 800 && S.menu) {
 } });
 window.addEventListener('hashchange', () => {
     const route = routeFromHash();
-    if (route === S.route)
-        return;
+    // Query changes open detail views within the same module.
     S.route = route;
     S.menu = false;
     closeModal();

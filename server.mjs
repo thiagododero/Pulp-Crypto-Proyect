@@ -185,7 +185,7 @@ export async function launchLocal(options = {}) {
         const url = `http://127.0.0.1:${port}`;
         const existing = await fetch(`${url}/api/health`, { signal: AbortSignal.timeout(400) })
             .then(async (r) => r.ok ? await r.json() : null).catch(() => null);
-        return existing?.app === 'pulp-beta' && existing.version === '4.0.0-beta.1';
+        return existing?.app === 'pulp-beta' && existing.version === '4.2.0-beta.1';
     };
     // Reuse a running copy even if a previous launch selected a fallback port.
     // This avoids running two processes against the same on-disk workspace.
@@ -216,7 +216,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.ar
             console.log(`Pulp Beta ya está abierto en ${url}.`);
         }
         else {
-            console.log(`\n🐙 PULP WHITE EDITION 4.0 · BETA · Inicio correcto\n${url}/${suffix}\n${!process.env.PULP_PUBLIC_ORIGIN && new URL(url).port !== '4173' ? 'Puerto 4173 ocupado: se eligió otro puerto automáticamente.\n' : ''}Datos privados: ${defaultDataDir()}\n${process.env.PULP_PUBLIC_ORIGIN ? 'Modo desplegable. Acceder solo por el proxy HTTPS configurado.' : 'Servidor local. No exponer directamente a internet.'} Ctrl+C para detener.\n`);
+            console.log(`\n🐙 PULP WHITE EDITION 4.2 · BETA · Inicio correcto\n${url}/${suffix}\n${!process.env.PULP_PUBLIC_ORIGIN && new URL(url).port !== '4173' ? 'Puerto 4173 ocupado: se eligió otro puerto automáticamente.\n' : ''}Datos privados: ${defaultDataDir()}\n${process.env.PULP_PUBLIC_ORIGIN ? 'Modo desplegable. Acceder solo por el proxy HTTPS configurado.' : 'Servidor local. No exponer directamente a internet.'} Ctrl+C para detener.\n`);
             for (const sig of ['SIGINT', 'SIGTERM'])
                 process.on(sig, () => { server.close(); setTimeout(() => process.exit(0), 300).unref(); });
         }

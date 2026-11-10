@@ -2,11 +2,12 @@
 (() => {
   if (!window.PULP_PRESENTATION) return;
   document.documentElement.classList.add('pulp-presentation');
-  const aliases={swap:'trade',earn:'trade',kit:'ui-kit'};
+  const aliases={swap:'trade',kit:'ui-kit'};
   const old=location.hash.replace(/^#\/?/,'');
   if(aliases[old]) history.replaceState(null,'','#/'+aliases[old]);
   const allowed=new Set(['refresh','retry','theme','menu','search','close-modal','go','new-project','launch-tab','trade-tab','token-picker','choose-token','swap-reverse','swap-half','watch-open','watch-save','watch-remove','favorite','save-draft','edit-draft','delete-draft','confirm-delete-draft','metadata','copy','kit-tab','kit-modal','kit-toast','kit-scroll','export-tokens','export-history','export-proposal','proposal-form','export-account','export-diagnostics','profile','density','v4-analyze-wallet','v4-gov-detail','v4-export-events','v4-export-account','v4-export-launch-plan','v4-inbox-read','v4-delete-rule','v4-delete-strategy','v4-pool-open','v4-pool-next','v4-pool-prev','tx-detail','token-detail','swap-token','dismiss-setup','start-guide','reset-presentation']);
-  const forms=new Set(['watch','picker','search','kit','label','profile','proposal','v4-analyze','v4-open-pool','v4-launchlab-read','v4-alert','v4-strategy','v4-launch-plan','v4-metadata','v4-privacy']);
+  for(const action of ['ux-new-project','ux-tab', 'ux-favorite', 'ux-only-favorites', 'ux-profile', 'ux-detail', 'ux-method', 'ux-project-doc', 'ux-compare-add', 'ux-compare', 'ux-clear-compare', 'ux-save-view', 'ux-reset', 'ux-open-address', 'ux-new-alert', 'ux-new-strategy', 'ux-wizard-prev', 'ux-export-plan', 'ux-load-draft', 'ux-delete-draft', 'ux-delete-draft-confirm', 'ux-export-portfolio', 'ux-export-events'])allowed.add(action);
+  const forms=new Set(['ux-launch','ux-address','watch','picker','search','kit','label','profile','proposal','v4-analyze','v4-open-pool','v4-launchlab-read','v4-alert','v4-strategy','v4-launch-plan','v4-metadata','v4-privacy']);
   const U=window.PulpUI, btn=U.btn, badge=U.badge;
   U.btn=(text,action,ic,variant,extra='')=>{
     if(action==='account'||action==='connect')text='Conectar wallet';
@@ -48,10 +49,6 @@
       else if(text.includes('Borradores privados guardados en este servidor'))el.textContent='Tus borradores se guardan en este navegador.';
       else if(text.includes('Los datos aparecen a partir de consultas reales.'))el.textContent='Todavía no hay información en este panel.';
     }
-    const drawer=app.querySelector('.b-nav');
-    if(drawer&&!drawer.querySelector('a[href="#/wallet-inspector"]')){
-      const a=document.createElement('a');a.href='#/wallet-inspector';a.innerHTML=U.icon('search')+'<span>Explorador de wallets</span>';drawer.querySelector('.w-dev-nav')?.before(a);
-    }
     const hero=app.querySelector('.p-route[data-route="launchpad"]');
     if(hero){[...hero.querySelectorAll(':scope > .p-hero')].slice(1).forEach(el=>el.remove());}
     for(const el of document.querySelectorAll('.b-table-wrap')){el.tabIndex=0;el.setAttribute('aria-label','Tabla de datos, desplazable horizontalmente');}
@@ -63,7 +60,7 @@
   observer.observe(document.getElementById('app'),{childList:true,subtree:true});
   observer.observe(document.getElementById('dialog-root'),{childList:true,subtree:true});
   document.addEventListener('click',e=>{
-    const reset=e.target.closest('[data-pv-reset]');if(reset){e.preventDefault();import('./presentation-api.mjs').then(m=>{m.resetPresentation();location.reload();});return;}
+    const reset=e.target.closest('[data-pv-reset]');if(reset){e.preventDefault();import('./presentation-api.mjs').then(m=>{m.resetPresentation();for(const k of Object.keys(localStorage))if(k.startsWith('pulp:product-ui:'))localStorage.removeItem(k);location.reload();});return;}
     const b=e.target.closest('[data-action]');if(b&&!allowed.has(b.dataset.action)){e.preventDefault();e.stopImmediatePropagation();}
     if(e.target.closest('[aria-disabled="true"]')){e.preventDefault();e.stopImmediatePropagation();}
   },true);

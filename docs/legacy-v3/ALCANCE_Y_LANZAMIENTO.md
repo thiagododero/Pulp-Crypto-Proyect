@@ -18,7 +18,6 @@ Se agregan primeros pasos, guía, estado de integraciones, actividad separada, d
 | PULP vesting, recompras automáticas, vaults propios | No implementados. Requieren especificación económica y revisión de contratos. |
 | Copy trading automático | No habilitado. Intelligence es observación de datos públicos. |
 | Gobernanza | Consultas locales firmadas y no vinculantes. No ejecución DAO. |
-| AI Studio | Intencionalmente en construcción. Sin cobros ni generaciones simuladas. |
 | Sitio público / multiusuario | No desplegado. El backend actual es local y de un operador. |
 | Auditoría independiente | No realizada. |
 
@@ -29,7 +28,7 @@ Se agregan primeros pasos, guía, estado de integraciones, actividad separada, d
 3. Seguridad: revisión independiente del constructor/inspector de transacciones, autorizaciones, rutas de proveedores, almacenamiento y recuperación. No ampliar instrucciones admitidas simplemente para evitar errores.
 4. Infraestructura pública: backend multiusuario separado, autenticación administrativa, roles, sesiones HTTPS, base de datos, backups, límites por usuario, monitoreo y una política de incidentes. No exponer `server.mjs` actual con túneles ni `0.0.0.0`.
 5. Token: fijar supply, distribución, vesting, facultades de emisión, tesorería, liquidez y límites de gasto. Crear y publicar direcciones bajo las firmas del propietario.
-6. Negocio: habilitar tarifas solo tras configurar receptores y mostrar costos exactos; separar ingresos, reservas y liquidez. No repartir créditos de IA todavía no consumidos como beneficio.
+6. Negocio: habilitar tarifas solo tras configurar receptores y mostrar costos exactos; separar ingresos, reservas y liquidez. No repartir ingresos comprometidos en servicios pendientes como beneficio.
 7. Lanzamiento: revisar todos los flujos en el dominio real, documentación de riesgos/proveedores y rutas para retirar sin depender de Pulp.
 
 Estas son dependencias reales, no botones que se deban mostrar como “listos”. El paquete no se anuncia como 100% operativo públicamente.

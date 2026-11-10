@@ -55,7 +55,7 @@ async def main():
     checks.append({'name':'Wallet Standard connection + Ed25519 login + session','pass':True})
     print('connected OK')
     # Page coverage desktop + mobile, overflow
-    routes=['home','intelligence','trade','launchpad','portfolio','token','governance','studio','ui-kit','visuals','settings']
+    routes=['home','intelligence','trade','launchpad','portfolio','token','governance','ui-kit','visuals','settings']
     for route in routes:
       await page.evaluate("r=>location.hash='#/'+r",route);await page.wait_for_timeout(400)
       body=await page.locator('body').inner_text()

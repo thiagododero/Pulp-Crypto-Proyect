@@ -1,52 +1,71 @@
-# Pulp 4.0 · White Edition · Beta de integración
+# Pulp Crypto · White 4.2.1
 
-**Entrega: 9 de noviembre de 2026 · 4.0.0-beta.1.** Ampliación real del código de White Edition, no una maqueta nueva. Conserva el diseño blanco, violetas y pulpos. No emite el token oficial PULP.
+Rediseño de producto sobre **el mismo Pulp Crypto**, con tema blanco/violeta, recursos originales y UI kit compartido. Radar, lanzamientos, cartera, actividad y DeFi se reorganizaron a partir de la comparativa visual.
 
-## Abrir en Mac
+**Entrega local preparada, no publicada en GitHub por el asistente.** La conexión disponible en esta sesión no permitió escribir commits. El repositorio de destino sigue siendo `thiagododero/Pulp-Crypto-Proyect`; no se creó otro.
 
-Cerrá la versión anterior con Ctrl+C. Descomprimí toda la carpeta `Pulp_4_White`, usá Node 20.11 o superior y hacé doble clic en **Abrir.command**. No necesita npm install. El puerto se elige automáticamente; no mates procesos de otras aplicaciones. Dejá la Terminal abierta mientras usás Pulp.
+## Ver la aplicación
 
-**Abrir-UI-Kit.command** abre el sistema de diseño. **Abrir-Web.command** abre la presentación. **Configurar.command** crea/edita `.env` privado. **Probar.command** ejecuta pruebas sin red. Con macOS bloqueando un archivo de procedencia conocida: clic derecho → Abrir, o `bash ` + arrastrar el `.command` a Terminal; no desactivar protecciones globales.
+1. Descomprimí toda la carpeta.
+2. Con Node.js 20.11 o superior instalado, hacé doble clic en **`Ver_Pulp.command`**.
+3. Mantené la Terminal abierta. Se construye la vista desde `public/`, elige un puerto libre y abre el navegador.
 
-## Datos de la versión anterior
+No requiere `npm install`, una cuenta de proveedor ni una wallet. Esta ruta abre la presentación: **conexiones, firmas, pagos y ejecución financiera están deshabilitados**. Los ejemplos y borradores son locales y están identificados discretamente en la interfaz.
 
-Se usa `~/Library/Application Support/PulpBeta` (Linux `~/.pulp-beta`). No publicar esa carpeta. La configuración antigua se respalda en `backup-pre-v4` y se migra a cifrado; el respaldo antiguo contiene secretos en texto plano y debe permanecer privado. No ejecutar v3 y v4 simultáneamente ni intentar volver a v3 sobre la configuración cifrada. Consultar OPERACION_Y_SEGURIDAD para backup/rollback.
+Si macOS impide el doble clic, revisá su procedencia y usá clic derecho → Abrir, o ejecutá `bash ` seguido del archivo arrastrado a Terminal. No desactives protecciones globales del sistema.
 
-## Lo nuevo
+## Actualizar el mismo GitHub y Pages
 
-Intelligence con histórico paginado y cobertura explícita; descubrimiento de candidatos on-chain; análisis FIFO de pares simples USDC; alertas de wallets/precio; inbox y canales Telegram/Discord configurables; estrategias copy/DCA/umbral **asistidas**; pagos únicos USDC Pro/Team; cifrado de secretos y sesiones revocables; contabilidad de cobros/egresos declarados; almacenamiento PostgreSQL/Supabase opcional.
+**`Publicar_en_GitHub.command`** prepara una copia nueva del repositorio usando Git de tu Mac. Requiere tus credenciales de Git configuradas (la conexión de ChatGPT no las transfiere).
 
-Además se incluyen preparadores **experimentales** nativos para Raydium CPMM, LaunchLab V2 con compra/venta de curva y vesting, y propuestas/votos/transferencias de una Squads existente. Están bloqueados por defecto, no auditados y no validados con fondos reales. No habilitarlos por el solo hecho de ver una pantalla o tests aprobados.
+El script verifica que `main` siga en la revisión examinada, valida los hashes de los archivos listados en `UPDATE_MANIFEST.json`, aplica solamente esos cambios y retira los archivos enumerados en `deletedFiles` y ejecuta las pruebas. Antes de crear el commit y subirlo te pide escribir **`PUBLICAR`**.
 
-## Conectar datos reales
+No hace force push, no cambia permisos, no crea repositorios, no sube claves y no lanza PULP. Si detecta commits nuevos, se detiene sin sobrescribir nada. El paquete sigue siendo utilizable localmente aunque la actualización remota se detenga.
 
-En Ajustes, configurar RPC/Jupiter. En Configurar.command, añadir opcionalmente Helius, Pinata, comercio USDC y Squads según docs/v4/CONFIGURACION.md. Sin credenciales/cuentas válidas los servicios muestran error o ausencia; no se sustituyen por fixtures. Intelligence no trae “ballenas ganadoras” inventadas: el radar se puebla al descubrir/indexar actividad. El operador puede usar “Explorar actividad pública” o activar el worker en `.env`.
+Después de un push exitoso, el workflow existente construye Pages desde la misma interfaz. Comprobá la publicación en:
+https://github.com/thiagododero/Pulp-Crypto-Proyect/actions/workflows/pages.yml
 
-Nunca ingreses una seed phrase. Conectar la wallet y firmar acceso no habilita gasto; cada operación requiere revisión y firma independiente. Los mecanismos asistidos no ejecutan por vos cuando te desconectás.
+La URL seguirá siendo:
+https://thiagododero.github.io/Pulp-Crypto-Proyect/
 
-## Alcance exacto
+**La web actual no cambia hasta que se envíe y publique el commit.** No se probó un push autenticado con este paquete.
 
-Abrí **ESTADO_DEL_ALCANCE.html**, o `docs/v4/ALCANCE_15_PUNTOS.md`. La entrega no equivale a completar el 100% del plan original: incluye extensiones implementadas, rutas experimentales, requisitos externos y capacidades aún ausentes. AI Studio permanece en construcción según lo acordado; no se recibió su fuente.
+## Alcance exclusivo cripto
 
-No se desplegó nube, token PULP, pool oficial, DAO propia ni cuentas de proveedores. No hay copy trading desatendido, vault propio, PnL universal, recompras automáticas o programa de referidos con pagos. La DAO integrada es Squads existente, no gobernanza token-weighted completa. No se anuncia auditoría, rentabilidad ni regreso garantizado.
+Se retiraron el estudio creativo, editor por capas, calendario de marketing, moodboard y su contrato de integración. El UI kit técnico y los recursos de marca permanecen: sostienen el diseño de la aplicación cripto, no son una herramienta de diseño para clientes.
 
-## Uso público
+## Qué contiene
 
-El lanzador abre local en 127.0.0.1. **No exponer directamente el modo local por un túnel.** Existe un modo público explícito con HTTPS, admin wallet, Supabase y clave de cifrado obligatorios. Se entregan migración SQL, Dockerfile y proxy Caddy: no fueron desplegados ni probados contra servicios reales. Una instancia solamente. Ver docs/v4/DESPLIEGUE.md.
+- Radar con filtros, períodos, favoritos, vistas guardadas, comparador y perfiles.
+- Launchpad con identidades de proyecto, estados, fichas y asistente de cuatro pasos.
+- Swap concentrado en su acción principal; catálogos y detalle de Earn/pools.
+- Portfolio con evolución, distribución, activos y posiciones; actividad interpretada con filtros.
+- Alertas, estrategias, consultas de gobernanza y borradores locales.
+- Preferencias separadas de conexiones del operador; navegación agrupada y UI kit actualizado.
+- Recursos 3D originales, móvil, teclado, tema claro/oscuro y 25 rutas.
+
+Ver [alcance, pruebas y límites del rediseño](docs/PRODUCT_REFINEMENT.md).
+
+## Código y modos
+
+`public/` es la única fuente de UI. `_site/` es **salida generada** para presentación y no se edita manualmente. `node scripts/build-pages.mjs` la regenera. El backend se conserva en `server/`, `server.mjs` y `shared/`.
+
+**`Abrir.command`** conserva el modo local conectado de la beta anterior. Ese modo necesita configuración propia y no está certificado para operar fondos. Para revisar este rediseño usá **`Ver_Pulp.command`**.
+
+El producto queda exclusivamente enfocado en cripto. No contiene un módulo de diseño creativo pendiente. No se emitió PULP, no se conectaron wallets reales ni se añadieron vaults/recompras/copy trading desatendido. Las capacidades previas del backend siguen sujetas a revisión y validación real.
 
 ## Pruebas
 
-`npm test` y `npm run check` no descargan paquetes. Los recorridos UI son opcionales para desarrolladores y requieren Python/Playwright/Chromium/cryptography y TypeScript para el harness. Ver docs/PRUEBAS.md y reportes JSON/TAP. Tests con proveedores/keys efímeras, no una extensión real ni dinero real. No probada en Mac físico/Safari/iOS.
+```bash
+npm run check
+npm test
+npm run build:pages
+```
 
-## Documentación
+Las pruebas Node incluidas no requieren paquetes nuevos. La verificación UI adicional requiere herramientas de desarrollo opcionales: TypeScript, Python Playwright y Chromium. Ver `tests/product-browser.py` y el método explicado en `docs/PRODUCT_REFINEMENT.md`.
 
-- `docs/v4/CONFIGURACION.md`: variables, proveedores y primer uso.
-- `docs/v4/ALCANCE_15_PUNTOS.md`: trabajo cubierto y faltantes.
-- `docs/v4/METODOLOGIA.md`: cobertura, costos desconocidos y reglas del radar.
-- `docs/v4/OPERACION_Y_SEGURIDAD.md`: pausa, firmas, respaldos y riesgos.
-- `docs/v4/DESPLIEGUE.md`: PostgreSQL, TLS y operación de instancia única.
-- `docs/v4/API.md`: mapa del código y contratos de rutas.
-- `docs/DESIGN_SYSTEM.md`: fundamentos visuales compartidos.
-- `docs/v4/FUENTES.md`: documentación primaria consultada.
+No se ejecutaron Safari/iPhone físicos, auditoría independiente ni operaciones con fondos. El reporte de QA describe lo observado, no garantiza ausencia universal de errores.
 
-No inviertas fondos importantes ni abras servicios financieros al público sin validar cada conexión/ruta y hacer una revisión independiente.
+## Datos privados
+
+No publiques `.env`, claves, backups ni datos de usuarios. El servidor conectado conserva sus datos fuera del proyecto en el directorio PulpBeta de tu usuario. No ejecutes versiones conectadas distintas sobre el mismo directorio a la vez. El servidor de presentación es de solo lectura y escucha exclusivamente en loopback.

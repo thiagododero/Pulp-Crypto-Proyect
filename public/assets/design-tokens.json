@@ -1,6 +1,6 @@
 {
   "name": "Pulp White Edition",
-  "version": "4.0.0-beta.1",
+  "version": "4.2.0-beta.1",
   "format": "pulp-css-tokens-v1",
   "description": "Exact CSS custom properties, including both theme modes. No Figma or DTCG schema conformance claimed.",
   "defaultMode": "light",
@@ -146,27 +146,39 @@
     }
   },
   "components": {
-    "button-primary": {
-      "background": "#7435df",
-      "text": "#ffffff",
-      "radius": "--radius-sm",
-      "minHeight": "42px"
+    "source": "public/css/product.css",
+    "cards": {
+      "radius": "16px",
+      "border": "var(--line)"
     },
-    "panel": {
-      "background": "--surface",
-      "border": "--line",
-      "radius": "--radius-lg"
+    "tables": {
+      "desktop": "rows",
+      "mobile": "labelled cards below 700px"
     },
-    "input": {
-      "background": "--surface",
-      "text": "--text",
-      "border": "--line-strong",
-      "minHeight": "44px"
+    "charts": {
+      "keyboard": [
+        "ArrowLeft",
+        "ArrowRight",
+        "Home",
+        "End"
+      ]
     },
-    "dialog": {
-      "background": "--surface",
-      "overlay": "--overlay",
-      "maxWidth": "540px"
+    "navigation": {
+      "primary": [
+        "home",
+        "intelligence",
+        "trade",
+        "earn",
+        "liquidity",
+        "launchpad"
+      ],
+      "secondaryGroups": [
+        "Comunidad",
+        "Crear",
+        "Cuenta",
+        "Administración",
+        "Recursos"
+      ]
     }
   },
   "breakpointsPx": {

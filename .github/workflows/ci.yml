@@ -1,9 +1,8 @@
-name: Tests Pulp 4.0
+name: Tests Pulp
 on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
 permissions:
   contents: read
 jobs:
@@ -14,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validar fuentes y sintaxis
+      - name: Validar fuentes y recursos
         run: npm run check
-      - name: Ejecutar pruebas de lógica e integraciones simuladas
+      - name: Ejecutar pruebas sin fondos ni proveedores reales
         run: npm test

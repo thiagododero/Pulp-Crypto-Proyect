@@ -20,7 +20,7 @@ if ! "$NODE" -e 'const [a,b]=process.versions.node.split(".").map(Number); proce
   read -r -p "Presioná Enter para cerrar… " _
   exit 1
 fi
-printf '\n🐙 PULP · WHITE EDITION 4.0 · BETA · Inicio automático\n\nSe abre en tu navegador. Dejá esta Terminal abierta mientras usás Pulp.\nCtrl+C detiene el servidor; no envía ni cancela transacciones on-chain.\n\n'
+printf '\n🐙 PULP · WHITE EDITION 4.2 · BETA · Inicio automático\n\nSe abre en tu navegador. Dejá esta Terminal abierta mientras usás Pulp.\nCtrl+C detiene el servidor; no envía ni cancela transacciones on-chain.\n\n'
 NODE_ARGS=()
 if [ -f ".env" ]; then NODE_ARGS+=("--env-file=.env"); fi
 "$NODE" "${NODE_ARGS[@]}" server.mjs --open "$@"

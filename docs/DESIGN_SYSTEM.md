@@ -43,4 +43,4 @@ No es un archivo nativo de Figma. Los SVG y tokens son reutilizables por un equi
 
 ## Extensión de producto 4.0
 
-`public/js/v4-ui.mjs` reutiliza los helpers de `views.mjs`; `public/css/v4.css` añade layouts del radar, alertas, estrategias, liquidez, Launch Studio, Squads, pagos y operación. No reemplaza la paleta semántica. Todas las escrituras financieras siguen la revisión compartida del core. Los avisos experimentales no se ocultan detrás de un color o un tooltip.
+`public/js/v4-ui.mjs` reutiliza los helpers de `views.mjs`; `public/css/v4.css` añade layouts del radar, alertas, estrategias, liquidez, planificador de lanzamientos, Squads, pagos y operación. No reemplaza la paleta semántica. Todas las escrituras financieras siguen la revisión compartida del core. Los avisos experimentales no se ocultan detrás de un color o un tooltip.

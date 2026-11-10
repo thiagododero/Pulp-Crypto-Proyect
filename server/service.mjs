@@ -93,7 +93,7 @@ export function createService({ dataDir, fetchImpl, skipDns = false, throttle = 
             throw new ApiError('Verificá tu cuenta con una firma de acceso desde la wallet.', 401, 'AUTH_REQUIRED');
         return s;
     }
-    function settingsPublic() { return { network: config.network, pulpMint: config.pulpMint, treasury: config.treasury, governanceUrl: config.governanceUrl, slippageBps: config.slippageBps, maxPriceImpact: config.maxPriceImpact, jupiterKeyConfigured: !!config.jupiterKey, mainnetRpcHost: new URL(config.mainnetRpc).hostname, devnetRpcHost: new URL(config.devnetRpc).hostname, version: '4.0.0-beta.1', revision, storage: store.kind, mode: publicOrigin ? 'public' : 'local', swapFeeBps: config.swapFeeBps || 0 }; }
+    function settingsPublic() { return { network: config.network, pulpMint: config.pulpMint, treasury: config.treasury, governanceUrl: config.governanceUrl, slippageBps: config.slippageBps, maxPriceImpact: config.maxPriceImpact, jupiterKeyConfigured: !!config.jupiterKey, mainnetRpcHost: new URL(config.mainnetRpc).hostname, devnetRpcHost: new URL(config.devnetRpc).hostname, version: '4.2.0-beta.1', revision, storage: store.kind, mode: publicOrigin ? 'public' : 'local', swapFeeBps: config.swapFeeBps || 0 }; }
     async function workspace(owner) { return read('account-' + address(owner), freshWorkspace()); }
     async function addHistory(row) { history.unshift(row); history = history.slice(0, 2000); await write('history', history); }
     async function saveHistory() { await write('history', history); }
@@ -460,7 +460,7 @@ export function createService({ dataDir, fetchImpl, skipDns = false, throttle = 
         if (route === 'boot')
             return { csrf, config: settingsPublic(), session: session(ctx.cookie) ? { owner: session(ctx.cookie).owner } : null, catalog: CATALOG };
         if (route === 'health')
-            return { ok: true, app: 'pulp-beta', version: '4.0.0-beta.1', network: config.network };
+            return { ok: true, app: 'pulp-beta', version: '4.2.0-beta.1', network: config.network };
         if (route === 'settings')
             return settingsPublic();
         if (route === 'settings/save') {

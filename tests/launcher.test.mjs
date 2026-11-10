@@ -30,7 +30,7 @@ test('opens automatically on the next available port when 4173-equivalent is occ
   assert.notEqual(Number(new URL(result.url).port), port);
   const r = await fetch(result.url + '/api/health');
   assert.equal(r.status, 200);
-  assert.deepEqual((await r.json()).version, '4.0.0-beta.1');
+  assert.deepEqual((await r.json()).version, '4.2.0-beta.1');
   assert.match(await (await fetch(result.url + '/')).text(), /Pulp/i);
 });
 

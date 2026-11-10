@@ -234,7 +234,6 @@ export function createV4(service, { dataDir, publicOrigin = '', adminWallet = ''
                 { key: 'billing', name: 'Suscripciones USDC', state: process.env.PULP_MERCHANT_WALLET ? 'configured' : 'needs-configuration', note: 'Facturas y activación por transferencia finalizada verificada; precios configurados Pro/Team.' },
                 { key: 'cloud', name: 'Datos multiusuario', state: cloud ? 'configured' : 'local', note: 'Adaptador PostgreSQL/Supabase + migración; no se creó cuenta ni despliegue.' },
                 { key: 'token', name: 'Token PULP', state: 'excluded', note: 'No se emite por instrucción del proyecto. Configurador y presupuesto disponibles.' },
-                { key: 'studio', name: 'AI Studio', state: 'excluded', note: 'En construcción según el alcance acordado. Contrato de integración documentado.' },
                 { key: 'security', name: 'Auditoría y operación real', state: 'external-review', note: 'Pruebas de contrato con fixtures no equivalen a validación on-chain ni auditoría.' }
             ], financialWrites: process.env.PULP_PAUSE_FINANCIAL === '1' ? 'paused' : 'wallet-confirmation-required', at: Date.now() };
     }

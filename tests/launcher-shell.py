@@ -16,7 +16,7 @@ with tempfile.TemporaryDirectory(prefix='pulp-white-shell-') as tmp:
     for attempt in range(100):
      try:
       with urllib.request.urlopen(f'http://127.0.0.1:{port}/api/health',timeout=.3) as r:
-       health=json.load(r);ready=health.get('version')=='4.0.0-beta.1'
+       health=json.load(r);ready=health.get('version')=='4.2.0-beta.1'
       if ready and log.exists():break
      except Exception:pass
      time.sleep(.05)

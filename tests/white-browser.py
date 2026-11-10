@@ -6,7 +6,7 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 from visual_support import boot,ROOT
 checks=[];errors=[]
-ROUTES=['home','intelligence','trade','launchpad','portfolio','activity','token','governance','studio','ui-kit','visuals','status','help','settings']
+ROUTES=['home','intelligence','trade','launchpad','portfolio','activity','token','governance','ui-kit','visuals','status','help','settings']
 PREVIEWS=ROOT/'previews';PREVIEWS.mkdir(exist_ok=True)
 def good(name,value=True,detail=None):
  row={'name':name,'pass':bool(value)}
@@ -93,7 +93,7 @@ async def main():
   for i,route in enumerate(ROUTES):
    await page.set_viewport_size({'width':1440,'height':1040});await page.evaluate("r=>location.hash='#/'+r",route);await page.wait_for_timeout(170)
    await page.evaluate('window.scrollTo(0,0)');await save_shot(page,path=str(PREVIEWS/f'{i+1:02d}-{route}-desktop.webp'),full_page=True,type='webp',quality=84)
-  for route in ['home','trade','launchpad','studio']:
+  for route in ['home','trade','launchpad']:
    await page.set_viewport_size({'width':390,'height':844});await page.evaluate("r=>location.hash='#/'+r",route);await page.wait_for_timeout(170);await page.evaluate('window.scrollTo(0,0)')
    await save_shot(page,path=str(PREVIEWS/f'{route}-mobile.webp'),full_page=True,type='webp',quality=86)
    await save_shot(page,path=str(PREVIEWS/f'{route}-mobile-viewport.png'),full_page=False)
