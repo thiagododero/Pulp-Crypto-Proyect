@@ -1,0 +1,26 @@
+name: Preparar actualización Pulp Crypto 4.2.1
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/pulp-release-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Exportar solamente archivos versionados para cotejo
+        run: |
+          mkdir -p /tmp/pulp-audit
+          git archive --format=tar.gz HEAD -o /tmp/pulp-audit/source.tar.gz
+          git ls-tree -r HEAD > /tmp/pulp-audit/tree.txt
+          git rev-parse HEAD > /tmp/pulp-audit/commit.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pulp-release-source-audit
+          path: /tmp/pulp-audit/
+          retention-days: 1
